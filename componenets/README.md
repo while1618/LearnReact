@@ -1,1 +1,1 @@
-Introducing to basic functional compaonents
+Introducing to basic functional components
