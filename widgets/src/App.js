@@ -33,14 +33,27 @@ const options = [
   }
 ];
 
+const dropdownMessage = "Select a Color";
+
 export default () => {
   const [selected, setSelected] = useState(options[0]);
+  const [showDropdown, setShowDropdown] = useState(true);
 
   return (
-    <div className="ui container">
+    <div className="ui container" style={{marginTop: "10px"}}>
       {/* <Accordion items={items} /> */}
       {/* <Search /> */}
-      <Dropdown selected={selected} onSelectedChange={setSelected} options={options} />
+
+      <div class="ui toggle checkbox">
+        <input type="checkbox" onChange={() => setShowDropdown(!showDropdown)} />
+        <label>Toggle Dropdown</label>
+      </div>
+      {
+        showDropdown ?
+          <Dropdown selected={selected} onSelectedChange={setSelected} message={dropdownMessage} options={options} />
+          : null
+      }
+
     </div>
   )
 }
