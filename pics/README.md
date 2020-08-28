@@ -1,3 +1,3 @@
 # Pics
 
-Class based components with proprs and lists of data retrived from api
+Class based components with state and lists of data retrived from api
