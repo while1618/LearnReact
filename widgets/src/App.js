@@ -3,6 +3,8 @@ import Accordion from "./components/Accordion";
 import Search from "./components/Search";
 import Dropdown from "./components/Dropdown";
 import Translate from "./components/Translate";
+import Route from "./components/Route";
+import Header from "./components/Header";
 
 const items = [
   {
@@ -41,22 +43,32 @@ export default () => {
   const [showDropdown, setShowDropdown] = useState(true);
 
   return (
-    <div className="ui container" style={{marginTop: "10px"}}>
-      {/* <Accordion items={items} /> */}
-      {/* <Search /> */}
+    <div className="ui container" style={{ marginTop: "10px" }}>
+      <Header />
 
-      {/* <div class="ui toggle checkbox">
-        <input type="checkbox" onChange={() => setShowDropdown(!showDropdown)} />
-        <label>Toggle Dropdown</label>
-      </div>
-      {
-        showDropdown ?
-          <Dropdown selected={selected} onSelectedChange={setSelected} message={dropdownMessage} options={options} />
-          : null
-      } */}
+      <Route path="/">
+        <Accordion items={items} />
+      </Route>
 
-      <Translate />
+      <Route path="/list">
+        <Search />
+      </Route>
 
+      <Route path="/dropdown">
+        <div className="ui toggle checkbox">
+          <input type="checkbox" onChange={() => setShowDropdown(!showDropdown)} />
+          <label>Toggle Dropdown</label>
+        </div>
+        {
+          showDropdown ?
+            <Dropdown selected={selected} onSelectedChange={setSelected} message={dropdownMessage} options={options} />
+            : null
+        }
+      </Route>
+
+      <Route path="/translate">
+        <Translate />
+      </Route>
     </div>
   )
 }
