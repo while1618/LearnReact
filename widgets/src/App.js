@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Accordion from "./components/Accordion";
 import Search from "./components/Search";
 import Dropdown from "./components/Dropdown";
+import Translate from "./components/Translate";
 
 const items = [
   {
@@ -44,7 +45,7 @@ export default () => {
       {/* <Accordion items={items} /> */}
       {/* <Search /> */}
 
-      <div class="ui toggle checkbox">
+      {/* <div class="ui toggle checkbox">
         <input type="checkbox" onChange={() => setShowDropdown(!showDropdown)} />
         <label>Toggle Dropdown</label>
       </div>
@@ -52,7 +53,9 @@ export default () => {
         showDropdown ?
           <Dropdown selected={selected} onSelectedChange={setSelected} message={dropdownMessage} options={options} />
           : null
-      }
+      } */}
+
+      <Translate />
 
     </div>
   )
