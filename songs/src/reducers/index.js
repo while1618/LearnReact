@@ -2,10 +2,10 @@ import { combineReducers } from "redux";
 
 const songsReducer = () => {
   return [
-    { title: "s1", duration: "3:01" },
-    { title: "s2", duration: "3:02" },
-    { title: "s3", duration: "3:03" },
-    { title: "s4", duration: "3:04" }
+    { title: "Bekfles - Ako humrem danas bebo", duration: "2:48" },
+    { title: "Bekfles - Debil", duration: "2:31" },
+    { title: "Bekfles - Bicu tvoj", duration: "2:50" },
+    { title: "Glavata Majmuncina - Jaguar Bog", duration: "1:18" }
   ];
 };
 
