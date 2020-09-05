@@ -1,17 +1,29 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { fetchPosts } from "../actions";
+import { fetchPostsAndUsers } from "../actions";
 
-const PostList = ({ fetchPosts }) => {
+import PostItem from "./PostItem";
+
+const PostList = ({ fetchPostsAndUsers, posts }) => {
   useEffect(() => {
-    fetchPosts();
-  }, [fetchPosts]);
+    fetchPostsAndUsers();
+  }, [fetchPostsAndUsers]);
+
+  const renderPosts = () => {
+    return posts.map(post => {
+      return <PostItem key={post.id} post={post} />;
+    });
+  }
 
   return (
-    <div>
-      Post List
+    <div className="ui relaxed divided list">
+      {renderPosts()}
     </div>
   );
 };
 
-export default connect(null, { fetchPosts })(PostList);
+const mapStateToProps = (state) => {
+  return { posts: state.posts };
+};
+
+export default connect(mapStateToProps, { fetchPostsAndUsers })(PostList);
