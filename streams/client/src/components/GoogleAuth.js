@@ -1,67 +1,66 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 
 import { signIn, signOut } from "../actions";
 
-class GoogleAuth extends React.Component {
-  componentDidMount() {
+const GoogleAuth = ({ isSignedIn, signIn, signOut }) => {
+  const gAuthApi = useRef(null);
+
+  useEffect(() => {
+    const onAuthChange = (isSignedIn) => {
+      if (isSignedIn) {
+        signIn(gAuthApi.current.currentUser.get().getId());
+      } else {
+        signOut();
+      }
+    };
+
     window.gapi.load('client:auth2', () => {
       window.gapi.client.init({
         clientId: "402178580726-9168un3bcniaink68qus0005lqv6m9h4.apps.googleusercontent.com",
         scope: "email"
       }).then(() => {
-        this.auth = window.gapi.auth2.getAuthInstance();
+        gAuthApi.current = window.gapi.auth2.getAuthInstance();
 
-        this.onAuthChange(this.auth.isSignedIn.get());
-        this.auth.isSignedIn.listen(this.onAuthChange);
+        onAuthChange(gAuthApi.current.isSignedIn.get());
+        gAuthApi.current.isSignedIn.listen(onAuthChange);
       });
     });
-  }
+  }, [signIn, signOut]);
 
-  onAuthChange = (isSignedIn) => {
-    if (isSignedIn) {
-      this.props.signIn(this.auth.currentUser.get().getId());
-    } else {
-      this.props.signOut();
-    }
-  }
-
-  onSignInClick = () => {
-    this.auth.signIn();
+  const onSignInClick = () => {
+    gAuthApi.current.signIn();
   };
 
-  onSignOutClick = () => {
-    this.auth.signOut();
+  const onSignOutClick = () => {
+    gAuthApi.current.signOut();
   };
 
-  renderAuthButton = () => {
-    if (this.props.isSignedIn === null) {
-      return null;
-    } else if (this.props.isSignedIn) {
-      return (
-        <button className="ui red google button" onClick={this.onSignOutClick}>
-          <i className="google icon" />
-          Sign Out
-        </button>
-      );
+  const renderAuthButton = () => {
+    if (isSignedIn === null) {
+      return gButton(null, "Loading...");
+    } else if (isSignedIn) {
+      return gButton(onSignOutClick, "Sign Out");
     } else {
-      return (
-        <button className="ui red google button" onClick={this.onSignInClick}>
-          <i className="google icon" />
-          Sign In with Google
-        </button>
-      );
+      return gButton(onSignInClick, "Sign In with Google");
     }
   };
 
-  render() {
+  const gButton = (onClick, text) => {
     return (
-      <div>
-        {this.renderAuthButton()}
-      </div>
+      <button className="ui red google button" onClick={onClick}>
+        <i className="google icon" />
+        {text}
+      </button>
     );
-  };
-}
+  }
+
+  return (
+    <div>
+      {renderAuthButton()}
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => {
   return { isSignedIn: state.auth.isSignedIn };
