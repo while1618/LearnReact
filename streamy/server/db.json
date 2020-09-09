@@ -2,7 +2,7 @@
   "streams": [
     {
       "title": "MyStream",
-      "description": "This is a great stream",
+      "description": "MyDescription",
       "userId": "106234628121275688517",
       "id": 1
     }
