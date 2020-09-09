@@ -3,18 +3,8 @@
     {
       "title": "MyStream",
       "description": "This is a great stream",
-      "id": 1
-    },
-    {
-      "title": "OtherStream",
-      "description": "Also great stream",
-      "id": 2
-    },
-    {
-      "title": "UsersStream",
-      "description": "User",
       "userId": "106234628121275688517",
-      "id": 3
+      "id": 1
     }
   ]
 }
