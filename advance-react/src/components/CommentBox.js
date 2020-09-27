@@ -1,15 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 
 import { saveComment } from "actions";
+import requireAuth from "components/requireAuth";
 
-const CommentBox = ({ auth, saveComment, history }) => {
+const CommentBox = ({ saveComment }) => {
   const [comment, setComment] = useState("");
-
-  useEffect(() => {
-    if (!auth)
-      history.push("/");
-  }, [auth, history]);
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -28,8 +24,4 @@ const CommentBox = ({ auth, saveComment, history }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return { auth: state.auth }
-}
-
-export default connect(mapStateToProps, { saveComment })(CommentBox);
+export default connect(null, { saveComment })(requireAuth(CommentBox));
